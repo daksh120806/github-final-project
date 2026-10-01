@@ -1,0 +1,10 @@
+curl -s https://api.github.com/repos/daksh120806/github-final-project | jq '{full_name, fork, parent}'
+
+{
+  "full_name": "daksh120806/github-final-project",
+  "fork": true,
+  "parent": {
+    "full_name": "ibm-developer-skills-network/mcino-Introduction-to-Git-and-GitHub",
+    "html_url": "https://github.com/ibm-developer-skills-network/mcino-Introduction-to-Git-and-GitHub"
+  }
+}
