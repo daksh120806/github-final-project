@@ -1,0 +1,14 @@
+curl -s https://api.github.com/repos/ibm-developer-skills-network/mcino-Introduction-to-Git-and-GitHub/pulls?state=all | jq '.[] | {number, state, head: {repo: .head.repo.full_name, ref: .head.ref}, base: {repo: .base.repo.full_name, ref: .base.ref}}' | head
+
+{
+  "number": 28,
+  "state": "open",
+  "head": {
+    "repo": "daksh120806/github-final-project",
+    "ref": "bug-fix-revert"
+  },
+  "base": {
+    "repo": "ibm-developer-skills-network/mcino-Introduction-to-Git-and-GitHub",
+    "ref": "main"
+  }
+}
