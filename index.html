@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Interest Calculator - github-final-project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar-brand {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .navbar-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .navbar-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .navbar-links a:hover {
+            color: #667eea;
+        }
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            text-align: center;
+            color: #fff;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background-color: #fff;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid #fff;
+        }
+        .btn:hover {
+            background-color: transparent;
+            color: #fff;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .features {
+            background-color: #fff;
+            padding: 3rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        .features h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #667eea;
+            font-size: 2rem;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .feature-card {
+            text-align: center;
+            padding: 1.5rem;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-5px);
+        }
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        .about {
+            background-color: #fff;
+            padding: 3rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        .about h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        .about p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        .calculator-section {
+            background-color: #fff;
+            padding: 3rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        .calculator-section h2 {
+            color: #667eea;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 2rem;
+        }
+        .calculator-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .calculate-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #667eea;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .calculate-btn:hover {
+            background-color: #764ba2;
+        }
+        .result {
+            background-color: #f0f0f0;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+        .result.show {
+            display: block;
+        }
+        .result p {
+            font-size: 1.25rem;
+            color: #667eea;
+            font-weight: bold;
+        }
+        .footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .repo-links {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .repo-links h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        .repo-links a {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: #667eea;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .repo-links a:hover {
+            background-color: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-brand">💰 Simple Interest Calculator</a>
+            <ul class="navbar-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#calculator">Calculator</a></li>
+                <li><a href="#links">Links</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>Simple Interest Calculator</h1>
+        <p>A comprehensive project demonstrating Git workflows and best practices</p>
+        <a href="#calculator" class="btn">Try Calculator</a>
+    </div>
+
+    <div class="container">
+        <div class="features" id="features">
+            <h2>Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>📊 Quick Calculation</h3>
+                    <p>Calculate simple interest instantly based on principal, rate, and time period</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎯 User-Friendly</h3>
+                    <p>Simple and intuitive interface for easy navigation and calculations</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📚 Well-Documented</h3>
+                    <p>Comprehensive documentation and contributing guidelines included</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔒 Licensed</h3>
+                    <p>Open source project with Apache 2.0 license</p>
+                </div>
+                <div class="feature-card">
+                    <h3>💻 Bash Script</h3>
+                    <p>Simple Bash script implementation for easy deployment</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🤝 Community Driven</h3>
+                    <p>Welcome contributions, bug reports, and feature enhancements</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="about" id="about">
+            <h2>About This Project</h2>
+            <p>
+                <strong>github-final-project</strong> is a simple interest calculator project designed to demonstrate 
+                professional Git workflows, GitHub collaboration, and best practices for open-source development.
+            </p>
+            <p>
+                This project includes:
+                <ul style="margin-left: 2rem; margin-top: 1rem;">
+                    <li>✅ Comprehensive README documentation</li>
+                    <li>✅ Apache 2.0 License for open-source distribution</li>
+                    <li>✅ Code of Conduct for community standards</li>
+                    <li>✅ Contributing guidelines for collaboration</li>
+                    <li>✅ Bash shell script implementation</li>
+                    <li>✅ Proper Git branching and merge workflows</li>
+                    <li>✅ Pull request management examples</li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="calculator-section" id="calculator">
+            <h2>Simple Interest Calculator</h2>
+            <div class="calculator-form">
+                <div class="form-group">
+                    <label for="principal">Principal Amount ($):</label>
+                    <input type="number" id="principal" placeholder="Enter principal amount" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="rate">Rate of Interest (%):</label>
+                    <input type="number" id="rate" placeholder="Enter rate of interest" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="time">Time Period (Years):</label>
+                    <input type="number" id="time" placeholder="Enter time period" step="0.01">
+                </div>
+                <button class="calculate-btn" onclick="calculateInterest()">Calculate Simple Interest</button>
+                <div class="result" id="result">
+                    <p id="resultText"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="repo-links" id="links">
+            <h3>Repository Links</h3>
+            <a href="https://github.com/daksh120806/github-final-project" target="_blank">📦 GitHub Repository</a>
+            <a href="https://github.com/daksh120806/github-final-project/blob/main/README.md" target="_blank">📖 README</a>
+            <a href="https://github.com/daksh120806/github-final-project/blob/main/LICENSE" target="_blank">⚖️ License</a>
+            <a href="https://github.com/daksh120806/github-final-project/blob/main/CONTRIBUTING.md" target="_blank">🤝 Contributing</a>
+            <a href="https://github.com/daksh120806/CODE_OF_CONDUCT.md" target="_blank">📋 Code of Conduct</a>
+            <a href="https://github.com/daksh120806/github-final-project/branches" target="_blank">🌿 Branches</a>
+            <a href="https://github.com/ibm-developer-skills-network/mcino-Introduction-to-Git-and-GitHub/pull/28" target="_blank">🔀 Pull Request</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Simple Interest Calculator Project. All rights reserved.</p>
+        <p>Licensed under <a href="https://github.com/daksh120806/github-final-project/blob/main/LICENSE" target="_blank">Apache 2.0</a></p>
+        <p><a href="https://github.com/daksh120806/github-final-project" target="_blank">View on GitHub</a></p>
+    </footer>
+
+    <script>
+        function calculateInterest() {
+            const principal = parseFloat(document.getElementById('principal').value);
+            const rate = parseFloat(document.getElementById('rate').value);
+            const time = parseFloat(document.getElementById('time').value);
+            
+            if (!principal || !rate || !time || principal <= 0 || rate < 0 || time <= 0) {
+                alert('Please enter valid values for all fields');
+                return;
+            }
+            
+            const simpleInterest = (principal * rate * time) / 100;
+            const totalAmount = principal + simpleInterest;
+            
+            const resultDiv = document.getElementById('result');
+            const resultText = document.getElementById('resultText');
+            
+            resultText.innerHTML = `
+                <strong>Results:</strong><br>
+                Principal: $${principal.toFixed(2)}<br>
+                Rate of Interest: ${rate.toFixed(2)}%<br>
+                Time Period: ${time.toFixed(2)} years<br>
+                <hr style="margin: 1rem 0;">
+                Simple Interest: <strong>$${simpleInterest.toFixed(2)}</strong><br>
+                Total Amount: <strong>$${totalAmount.toFixed(2)}</strong>
+            `;
+            
+            resultDiv.classList.add('show');
+        }
+        document.getElementById('time').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculateInterest();
+            }
+        });
+    </script>
+</body>
+</html>
